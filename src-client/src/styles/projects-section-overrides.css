@@ -1,0 +1,102 @@
+/* --- ApprovedProjects.css (Using Flexbox) --- */
+
+/* --- Global Variables (Consistency) --- */
+:root {
+    --color-logo-text: #000;
+    --color-background-page: #F5F5F5;
+    --color-card-background: #ffffff;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --border-radius-card: 10px; 
+    --color-approved-accent: #17A34B; /* Green for Approved status */
+}
+
+/* --- Projects Section (Container for the entire tab content) --- */
+
+.projects-section {
+    padding: 10px 0;
+}
+
+/* --- Section Title --- */
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--color-approved-accent); 
+    text-align: left;
+    margin: 0 0 25px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* --- Projects Grid (CRITICAL: Using Flexbox) --- */
+
+/* --- ApprovedProjects.css (CRITICAL FIX FOR SINGLE CARD WIDTH) --- */
+
+/* --- Projects Grid (CRITICAL: Using Flexbox) --- */
+
+.projects-grid {
+    /* Use Flexbox for wrapping layout */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap; 
+    justify-content: flex-start; 
+    
+    /* Gap between cards */
+    gap: 20px;
+}
+
+/* CRITICAL FIX: Overriding the ProjectCard's implicit flex properties 
+to ensure it does NOT grow (flex-grow: 0) and stays at its fixed width.
+*/
+.projects-grid .project-card {
+    /* Set flex-grow to 0 to prevent expansion in rows with few items */
+    flex-grow: 0; 
+    
+    /* Set flex-shrink to 1 to allow modest shrinking on small screens */
+    flex-shrink: 1; 
+    
+    /* Set flex-basis to the desired fixed width */
+    flex-basis: 280px; /* Use the preferred card width */
+    
+    /* Ensure the card's width property (set in ProjectCard.css) is respected */
+    width: 280px; 
+    
+    /* Resetting any margin collapse that Flexbox might introduce */
+    margin: 0;
+}
+
+
+/* All other styles for .projects-section, .section-title, and .empty-state remain the same. */
+
+
+/* --- Empty State (Used when projects.length === 0) --- */
+
+.empty-state {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: var(--color-card-background);
+    border: 1px dashed #ccc;
+    border-radius: var(--border-radius-card);
+    margin-top: 20px;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    color: var(--color-approved-accent); 
+}
+
+.empty-state h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--color-logo-text);
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-family: var(--font-sans);
+    color: #777;
+}

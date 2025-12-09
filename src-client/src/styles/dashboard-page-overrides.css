@@ -1,0 +1,128 @@
+/* --- Global Dashboard Styling --- */
+.dashboard-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #F5F5F5; /* Matches Landing Page background */
+}
+
+/* FIX 1: Apply padding only when .container is inside .dashboard-page */
+.dashboard-page > .container {
+    max-width: 1280px; 
+    margin: 0 auto;
+    
+    /* Apply vertical spacing here instead of relying on margin collapse */
+    padding-top: 50px; 
+    
+    /* Using flow-root again as a safety against margin collapse */
+    display: flow-root; 
+    
+    padding-bottom: 80px;
+    padding-left: 20px; 
+    padding-right: 20px;
+}
+
+
+/* --- Faculty Info Card (Top Section) --- */
+
+.faculty-info-card {
+    /* FIX 2: Ensure the very first element inside the container does NOT have any top margin
+       that might collapse or push the navbar content if Fix 1 fails. */
+    margin-top: 0 !important; 
+    
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    padding: 30px;
+    margin-bottom: 40px; 
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    border-left: 8px solid #000; 
+    width: 100%; 
+    box-sizing: border-box; 
+}
+
+.faculty-avatar {
+    font-size: 4rem;
+    line-height: 1;
+    background-color: #F5F5F5; 
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.faculty-details {
+    flex-grow: 1;
+    text-align: left;
+    color: #000;
+}
+
+.faculty-details h2 {
+    font-family: 'Playfair Display', serif; 
+    font-size: 2.2rem;
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.faculty-details p {
+    font-family: 'Inter', sans-serif; 
+    font-size: 1rem;
+    color: #555;
+    margin: 4px 0;
+}
+
+/* --- Faculty Stats (Right Side of Card) --- */
+
+.faculty-stats {
+    display: flex;
+    gap: 30px;
+    padding-left: 30px;
+    border-left: 1px solid #eee; 
+}
+
+.faculty-stats .stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: 'Playfair Display', serif; 
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #000; 
+    display: block;
+}
+
+.stat-label {
+    font-family: 'Inter', sans-serif; 
+    font-size: 0.85rem;
+    color: #555;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 992px) {
+    .faculty-info-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    .faculty-details {
+        text-align: center;
+    }
+    .faculty-stats {
+        border-left: none;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        padding-left: 0;
+        width: 100%;
+        justify-content: space-around;
+    }
+}

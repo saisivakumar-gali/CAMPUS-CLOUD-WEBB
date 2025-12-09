@@ -181,8 +181,7 @@ router.get('/all-approved', async (req, res) => {
     const { branch, category, search, page = 1, limit = 12 } = req.query;
     
     let query = { 
-      status: 'completed',
-      'finalDocuments.report': { $exists: true, $ne: null }
+      status: 'completed'
     };
 
     // Filter by branch
@@ -201,7 +200,11 @@ router.get('/all-approved', async (req, res) => {
         { title: { $regex: search, $options: 'i' } },
         { description: { $regex: search, $options: 'i' } },
         { shortOverview: { $regex: search, $options: 'i' } },
-        { 'teamMembers.name': { $regex: search, $options: 'i' } }
+        { 'teamMembers.name': { $regex: search, $options: 'i' } },
+        // Add search for form-based projects
+        { 'finalDetails.basicInfo.projectDomain': { $regex: search, $options: 'i' } },
+        { 'finalDetails.basicInfo.teamMembers': { $regex: search, $options: 'i' } },
+        { 'finalDetails.technicalDetails.technologiesUsed': { $regex: search, $options: 'i' } }
       ];
     }
 
@@ -407,6 +410,76 @@ router.delete('/:id', [
   } catch (error) {
     console.error('Delete project error:', error);
     res.status(500).json({ message: 'Server error while deleting project' });
+  }
+});
+
+// @route   PUT /api/projects/:id/final-details
+// @desc    Submit final project details (form-based)
+// @access  Private (Student)
+router.put('/:id/final-details', [
+  auth,
+  requireRole(['student']),
+  body('projectDetails').isObject().withMessage('Project details are required')
+], async (req, res) => {
+  try {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ 
+        message: 'Validation failed',
+        errors: errors.array() 
+      });
+    }
+
+    const { projectDetails } = req.body;
+
+    // Validate ObjectId format
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+      return res.status(400).json({ message: 'Invalid project ID format' });
+    }
+
+    const project = await Project.findById(req.params.id);
+    if (!project) {
+      return res.status(404).json({ message: 'Project not found' });
+    }
+
+    // Check if student owns this project
+    if (project.submittedBy.toString() !== req.user._id.toString()) {
+      return res.status(403).json({ message: 'Not authorized to update this project' });
+    }
+
+    // Check if project is approved
+    if (project.status !== 'approved') {
+      return res.status(400).json({ message: 'Only approved projects can submit final details' });
+    }
+
+    // Validate required form fields
+    if (!projectDetails?.basicInfo?.projectDomain || 
+        !projectDetails?.description?.abstract ||
+        !projectDetails?.description?.objectives?.length ||
+        !projectDetails?.description?.problemStatement ||
+        !projectDetails?.description?.proposedSolution ||
+        !projectDetails?.technicalDetails?.finalOutput) {
+      return res.status(400).json({ message: 'All required fields must be filled' });
+    }
+
+    // Update project with form data
+    project.finalDetails = {
+      ...projectDetails,
+      submittedAt: new Date()
+    };
+    project.status = 'completed';
+    project.completedAt = new Date();
+
+    await project.save();
+    await project.populate('facultyGuide submittedBy', 'firstName lastName designation collegeId department');
+
+    res.json({
+      message: 'Project details submitted successfully',
+      project
+    });
+  } catch (error) {
+    console.error('Final details submission error:', error);
+    res.status(500).json({ message: 'Server error while submitting project details' });
   }
 });
 

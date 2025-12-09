@@ -12,7 +12,7 @@ const LandingPage = () => {
         <div className="container">
           <div className="hero-content">
             <h1 className="hero-title">
-              Welcome to <span className="highlight">EduProjects</span>
+              Welcome to <span className="highlight">Campus Cloud Web</span>
             </h1>
             <h2 className="hero-subtitle">
               College Project Management Portal
@@ -24,10 +24,10 @@ const LandingPage = () => {
             </p>
             <div className="hero-actions">
               <Link to="/register" className="btn btn-primary btn-large">
-                🚀 Get Started
+                 Get Started
               </Link>
               <Link to="/projects" className="btn btn-secondary btn-large">
-                🔍 Browse Projects
+                 Browse Projects
               </Link>
             </div>
           </div>
@@ -37,51 +37,33 @@ const LandingPage = () => {
       {/* About Section */}
       <section id="about" className="about-section">
         <div className="container">
-          <h2 className="section-title">About EduProjects</h2>
+          <h2 className="section-title">About Campus Cloud Web</h2>
           <div className="about-content">
             <div className="about-text">
               <h3>Empowering Academic Excellence</h3>
               <p>
-                EduProjects is a comprehensive platform designed to streamline the entire 
+                Campus Cloud Web is a comprehensive platform designed to streamline the entire 
                 project lifecycle in educational institutions. From initial proposal to 
                 final submission and review, we provide the tools for seamless collaboration 
                 between students and faculty.
               </p>
               <p>
-                Our platform bridges the gap between innovative student ideas and expert 
-                faculty guidance, creating an ecosystem that fosters creativity, learning, 
-                and academic excellence.
+              Our platform bridges the gap between innovative student ideas and expert faculty guidance, creating an ecosystem that fosters creativity, learning, and academic excellence. Faculty members can effortlessly manage submissions, grade drafts, and generate comprehensive reports across multiple project batches. Finally, the system culminates in a digital portfolio, allowing students to showcase their successful projects to future employers and peers.
               </p>
               
-              <div className="about-stats">
-                <div className="stat">
-                  <span className="stat-number">1000+</span>
-                  <span className="stat-label">Projects</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-number">500+</span>
-                  <span className="stat-label">Students</span>
-                </div>
-                <div className="stat">
-                  <span className="stat-number">50+</span>
-                  <span className="stat-label">Faculty</span>
-                </div>
-              </div>
+              
             </div>
             
             <div className="about-visions">
               <div className="vision-card">
-                <h4>🎯 Our Mission</h4>
+                <h4> Our Mission</h4>
                 <p>To simplify project management and enhance collaboration in academic institutions.</p>
               </div>
               <div className="vision-card">
-                <h4>👁️ Our Vision</h4>
+                <h4> Our Vision</h4>
                 <p>Creating a centralized hub for academic project excellence and innovation.</p>
               </div>
-              <div className="vision-card">
-                <h4>💡 Our Values</h4>
-                <p>Innovation, Collaboration, Excellence, and Accessibility.</p>
-              </div>
+             
             </div>
           </div>
         </div>
@@ -95,57 +77,38 @@ const LandingPage = () => {
             <div className="department-card">
               <div className="department-icon">💻</div>
               <div className="department-name">Computer Science</div>
-              <div className="department-projects">250+ Projects</div>
+              <div className="department-projects">Fostering innovation in algorithms, software development, and artificial intelligence to build the digital infrastructure of tomorrow.</div>
             </div>
             <div className="department-card">
               <div className="department-icon">📡</div>
-              <div className="department-name">Electronics</div>
-              <div className="department-projects">180+ Projects</div>
+              <div className="department-name">Electronics& Communications</div>
+              <div className="department-projects">Designing and optimizing integrated circuits, communication systems, and embedded hardware for next-generation devices and IoT applications.</div>
             </div>
             <div className="department-card">
               <div className="department-icon">⚡</div>
-              <div className="department-name">Electrical</div>
-              <div className="department-projects">150+ Projects</div>
+              <div className="department-name">Electrical&Electronics</div>
+              <div className="department-projects">Focusing on the generation, transmission, and control of electrical power, renewable energy systems, and high-efficiency electrical machines.</div>
             </div>
             <div className="department-card">
               <div className="department-icon">🔧</div>
               <div className="department-name">Mechanical</div>
-              <div className="department-projects">120+ Projects</div>
+              <div className="department-projects">Applying principles of motion, energy, and force to design, analyze, and manufacture everything from industrial machinery to robotic systems.</div>
             </div>
             <div className="department-card">
               <div className="department-icon">🏗️</div>
               <div className="department-name">Civil</div>
-              <div className="department-projects">90+ Projects</div>
+              <div className="department-projects">Planning, designing, and constructing essential infrastructure, including buildings, bridges, and transportation networks, to improve quality of life.</div>
             </div>
             <div className="department-card">
               <div className="department-icon">🎨</div>
               <div className="department-name">Arts & Design</div>
-              <div className="department-projects">80+ Projects</div>
+              <div className="department-projects"> Integrating creative principles with technical skills to develop user interfaces, industrial prototypes, and compelling visual media.</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Gallery Section */}
-      <section id="gallery" className="gallery-section">
-        <div className="container">
-          <h2 className="section-title">Project Gallery</h2>
-          <div className="gallery-grid">
-            <div className="gallery-item">
-              <div className="gallery-image">AI Research Project</div>
-            </div>
-            <div className="gallery-item">
-              <div className="gallery-image">Robotics Innovation</div>
-            </div>
-            <div className="gallery-item">
-              <div className="gallery-image">Web Application</div>
-            </div>
-            <div className="gallery-item">
-              <div className="gallery-image">IoT Solution</div>
-            </div>
-          </div>
-        </div>
-      </section>
+     
 
       {/* Testimonials Section */}
       <section className="testimonials-section">
@@ -154,11 +117,11 @@ const LandingPage = () => {
           <div className="testimonials-grid">
             <div className="testimonial-card">
               <p className="testimonial-text">
-                "EduProjects transformed how we manage student projects. The platform is intuitive 
+                "Campus Cloud Web transformed how we manage student projects. The platform is intuitive 
                 and has significantly reduced our administrative workload."
               </p>
               <div className="testimonial-author">
-                <div className="author-avatar">👨‍🏫</div>
+                <div className="author-avatar"></div>
                 <div>
                   <div className="author-name">Dr. Sarah Johnson</div>
                   <div className="author-role">Professor, Computer Science</div>
@@ -171,7 +134,7 @@ const LandingPage = () => {
                 The final upload feature makes document management a breeze!"
               </p>
               <div className="testimonial-author">
-                <div className="author-avatar">👩‍🎓</div>
+                <div className="author-avatar"></div>
                 <div>
                   <div className="author-name">Emily Chen</div>
                   <div className="author-role">Final Year Student</div>
@@ -192,11 +155,11 @@ const LandingPage = () => {
               <div className="contact-details">
                 <div className="contact-item">
                   <span className="contact-icon">📧</span>
-                  <span>support@eduprojects.com</span>
+                  <span>support@CampusCloudWeb.com</span>
                 </div>
                 <div className="contact-item">
                   <span className="contact-icon">📞</span>
-                  <span>+1 (555) 123-EDU</span>
+                  <span>+1 (555) 123-CCW</span>
                 </div>
                 <div className="contact-item">
                   <span className="contact-icon">📍</span>
@@ -227,7 +190,7 @@ const LandingPage = () => {
         <div className="container">
           <h2 className="cta-title">Ready to Get Started?</h2>
           <p className="cta-description">
-            Join hundreds of students and faculty members already using EduProjects 
+            Join hundreds of students and faculty members already using Campus Cloud Web 
             to streamline their academic project workflow.
           </p>
           <div className="cta-actions">

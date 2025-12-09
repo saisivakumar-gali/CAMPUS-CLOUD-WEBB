@@ -11,7 +11,7 @@ const AllProjectsPage = () => {
   const [loading, setLoading] = useState(true)
   const [filters, setFilters] = useState({
     department: '',
-    category: '',
+    domain: '',
     search: ''
   })
 
@@ -32,19 +32,33 @@ const AllProjectsPage = () => {
     }
   }
 
+  // UPDATE the filteredProjects function (around line 30-50)
   const filteredProjects = projects.filter(project => {
-    const matchesDepartment = !filters.department || project.branch === filters.department
-    const matchesCategory = !filters.category || project.category === filters.category
+    const matchesDepartment = !filters.department || project.branch === filters.department;
+    const matchesDomain = !filters.domain || 
+      (project.finalDetails?.basicInfo?.projectDomain?.includes(filters.domain));
     const matchesSearch = !filters.search || 
       project.title.toLowerCase().includes(filters.search.toLowerCase()) ||
       project.shortOverview.toLowerCase().includes(filters.search.toLowerCase()) ||
-      project.branch.toLowerCase().includes(filters.search.toLowerCase())
+      project.branch.toLowerCase().includes(filters.search.toLowerCase()) ||
+      (project.finalDetails?.basicInfo?.projectDomain?.toLowerCase().includes(filters.search.toLowerCase())) ||
+      (project.finalDetails?.basicInfo?.teamMembers?.some(member => 
+        member.toLowerCase().includes(filters.search.toLowerCase())
+      )) ||
+      (project.finalDetails?.technicalDetails?.technologiesUsed?.some(tech => 
+        tech.toLowerCase().includes(filters.search.toLowerCase())
+      ));
 
-    return matchesDepartment && matchesCategory && matchesSearch
-  })
+    return matchesDepartment && matchesDomain && matchesSearch;
+  });
 
   const departments = [...new Set(projects.map(p => p.branch))]
-  const categories = [...new Set(projects.map(p => p.category))]
+  
+  // UPDATE domains extraction (around line 55)
+  const domains = [...new Set(projects
+    .map(p => p.finalDetails?.basicInfo?.projectDomain)
+    .filter(domain => domain)
+  )];
 
   if (loading) {
     return (
@@ -65,7 +79,7 @@ const AllProjectsPage = () => {
         {/* Page Header */}
         <div className="page-header">
           <h1>📁 All Projects</h1>
-          <p>Browse through completed and approved student projects</p>
+          <p>Browse through completed and approved student projects with detailed information</p>
         </div>
 
         {/* Filters */}
@@ -74,7 +88,7 @@ const AllProjectsPage = () => {
             <div className="search-box">
               <input
                 type="text"
-                placeholder="Search projects..."
+                placeholder="Search projects, domains, team members, technologies..."
                 value={filters.search}
                 onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                 className="form-input"
@@ -93,18 +107,18 @@ const AllProjectsPage = () => {
             </select>
 
             <select
-              value={filters.category}
-              onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
+              value={filters.domain}
+              onChange={(e) => setFilters(prev => ({ ...prev, domain: e.target.value }))}
               className="form-select"
             >
-              <option value="">All Categories</option>
-              {categories.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
+              <option value="">All Domains</option>
+              {domains.map(domain => (
+                <option key={domain} value={domain}>{domain}</option>
               ))}
             </select>
 
             <button
-              onClick={() => setFilters({ department: '', category: '', search: '' })}
+              onClick={() => setFilters({ department: '', domain: '', search: '' })}
               className="btn btn-secondary"
             >
               Clear Filters
@@ -120,7 +134,7 @@ const AllProjectsPage = () => {
               <h3>No projects found</h3>
               <p>Try adjusting your search criteria or filters</p>
               <button
-                onClick={() => setFilters({ department: '', category: '', search: '' })}
+                onClick={() => setFilters({ department: '', domain: '', search: '' })}
                 className="btn btn-primary"
               >
                 Clear All Filters
@@ -130,6 +144,9 @@ const AllProjectsPage = () => {
             <>
               <div className="results-info">
                 <p>Showing {filteredProjects.length} of {projects.length} projects</p>
+                <div className="search-tips">
+                  <small>💡 Search by project title, domain, team members, or technologies used</small>
+                </div>
               </div>
               
               <div className="projects-grid">

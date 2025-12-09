@@ -95,6 +95,35 @@ const projectSchema = new mongoose.Schema({
   },
   completedAt: {
     type: Date
+  },
+  // ADD NEW FIELD - form-based submissions
+  finalDetails: {
+    type: {
+      basicInfo: {
+        projectTitle: String,
+        projectDomain: String,
+        teamMembers: [String],
+        guideName: String,
+        batchYear: String
+      },
+      description: {
+        abstract: String,
+        fullDescription: String,
+        objectives: [String],
+        problemStatement: String,
+        proposedSolution: String
+      },
+      technicalDetails: {
+        finalOutput: String,
+        performanceMetrics: String,
+        conclusion: String,
+        technologiesUsed: [String],
+        challengesFaced: String,
+        futureEnhancements: String
+      },
+      submittedAt: Date
+    },
+    default: null
   }
 }, {
   timestamps: true

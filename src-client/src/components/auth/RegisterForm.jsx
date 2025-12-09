@@ -108,8 +108,8 @@ const RegisterForm = ({ formData, handleChange, agreeTerms, setAgreeTerms }) => 
         >
           <option value="">Select Department</option>
           <option value="CSE">Computer Science (CSE)</option>
-          <option value="ECE">Electronics (ECE)</option>
-          <option value="EEE">Electrical (EEE)</option>
+          <option value="ECE">Electronics & Communications (ECE)</option>
+          <option value="EEE">Electrical & Electronics (EEE)</option>
           <option value="MECH">Mechanical (MECH)</option>
           <option value="CIVIL">Civil (CIVIL)</option>
           <option value="BUSINESS">Business</option>

@@ -1,0 +1,247 @@
+/* --- Global Variables and Base Styling (High Contrast Theme) --- */
+:root {
+    --color-logo-text: #000;
+    --color-link-text: #333;
+    --color-link-hover: #007CED; /* Blue for hover contrast */
+    --color-button-outline: #000;
+    --color-button-filled: #000000; 
+    --color-background-navbar: #ffffff;
+    --border-radius-pill: 50px;
+}
+
+body {
+    /* Use a clean, modern sans-serif font, or system default */
+    font-family: 'Inter', 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 1280px; 
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Navbar Container --- */
+
+.navbar {
+    width: 100%;
+    background-color: var(--color-background-navbar);
+    /* Very subtle shadow to lift it off the page */
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05); 
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    padding: 15px 0; /* Vertical spacing */
+}
+
+.nav-content {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    min-height: 50px;
+}
+
+/* --- Logo Styling (Mimics the image's bold, serif look) --- */
+
+.nav-logo {
+    text-decoration: none;
+    color: var(--color-logo-text);
+    font-size: 1.8rem;
+    font-weight: 900; 
+    letter-spacing: 0.5px;
+    /* Using Georgia/Times to achieve the strong, bold serif style */
+    font-family: 'Georgia', 'Times New Roman', serif; 
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+/* Hide the icon to focus purely on the text logo style */
+.nav-logo .logo-icon {
+    display: none; 
+}
+
+/* --- Navigation Links Group --- */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Space between links and buttons */
+}
+
+/* Style for all text links (Home, About, etc.) */
+.nav-links .nav-link {
+    background: none;
+    border: none;
+    color: var(--color-link-text);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    padding: 10px 0;
+    transition: color 0.3s ease;
+    text-transform: uppercase; /* Match image's link style */
+    white-space: nowrap;
+}
+
+.nav-links .nav-link:hover {
+    color: var(--color-link-hover);
+}
+
+
+/* --- Button Styling (Login/Register) --- */
+
+/* 1. Login/CTA Button (The prominent outlined button from the image) */
+.nav-links .btn-outline {
+    /* Ensure it acts like a button and overrides default link styles */
+    display: inline-block; 
+    padding: 12px 30px;
+    border: 2px solid var(--color-button-outline);
+    border-radius: var(--border-radius-pill);
+    color: var(--color-button-outline);
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+}
+
+.nav-links .btn-outline:hover {
+    background-color: var(--color-button-outline);
+    color: var(--color-background-navbar);
+}
+
+/* 2. Register Button (Secondary button, styled as filled) */
+.nav-links .reg {
+    /* Ensure it acts like a button */
+    display: inline-block;
+    
+    /* Using the primary brand color for a filled look */
+    padding: 12px 30px;
+    border: 2px solid var(--color-button-filled);
+    border-radius: var(--border-radius-pill);
+    background-color: var(--color-button-filled);
+    color: var(--color-background-navbar);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    margin-left: 10px; /* Separator between the two buttons */
+}
+
+.nav-links .reg:hover {
+    background-color: #fff;
+    border-color: #000;
+    color:#000;
+}
+
+
+/* --- Dashboard Navbar Adjustments (Authenticated View) --- */
+
+.dashboard-nav {
+    background-color: var(--color-background-navbar); 
+}
+
+.dashboard-nav .nav-logo {
+    font-size: 1.2rem; 
+    font-weight: 700;
+    letter-spacing: 0;
+}
+.dashboard-nav .nav-logo .logo-icon {
+    display: inline-block; 
+    margin-right: 5px;
+    color: var(--color-link-hover);
+}
+
+/* User Menu & Logout Button */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-greeting {
+    font-size: 0.9rem;
+    color: var(--color-link-text);
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.logout-btn {
+    border: 1px solid var(--color-link-hover);
+    background: none;
+    color: var(--color-link-hover);
+    padding: 8px 15px;
+    border-radius: var(--border-radius-pill);
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: var(--color-link-hover);
+    color: var(--color-background-navbar);
+}
+
+/* --- Mobile Menu Button (Toggle) --- */
+
+.mobile-menu-btn {
+    display: none; /* Hide on desktop */
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-logo-text);
+}
+
+/* --- Mobile Menu Styles (Ensuring visibility and clean look) --- */
+
+.mobile-menu {
+    display: none; /* Hidden by default, toggled by state */
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--color-background-navbar);
+    border-top: 1px solid #eee;
+    padding: 10px 0;
+    position: absolute; /* Allows menu to drop down correctly */
+    top: 100%;
+    left: 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.mobile-nav-link {
+    width: 100%;
+    padding: 12px 20px;
+    text-align: left;
+    text-decoration: none;
+    color: var(--color-link-text);
+    font-size: 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.mobile-nav-link:hover {
+    background-color: #f4f4f4;
+    color: var(--color-link-hover);
+}
+
+/* --- Responsive Layout (Mobile breakpoint) --- */
+
+@media (max-width: 1024px) {
+    /* Hide desktop navigation and show mobile menu button */
+    .nav-links {
+        display: none; 
+    }
+    .mobile-menu-btn {
+        display: block; 
+    }
+    
+    /* Ensure mobile menu is toggled by state, but styled correctly when open */
+    /* The React component handles the state toggle, but the base style must be ready */
+}
+
+@media (max-width: 600px) {
+    .nav-logo {
+        font-size: 1.4rem;
+    }
+}
+
+

@@ -38,8 +38,8 @@ const Navbar = () => {
       <div className="container">
         <div className="nav-content">
           <Link to="/" className="nav-logo">
-            <span className="logo-icon">🏫</span>
-            EDUPROJECTS
+            <span className="logo-icon"><i class="ri-school-fill"></i></span>
+            Campus Cloud Web
           </Link>
           
           <div className="nav-links">
@@ -55,12 +55,7 @@ const Navbar = () => {
             >
               About
             </button>
-            <button 
-              onClick={() => scrollToSection('gallery')} 
-              className="nav-link"
-            >
-              Gallery
-            </button>
+            
             <button 
               onClick={() => scrollToSection('contact')} 
               className="nav-link"
@@ -70,7 +65,7 @@ const Navbar = () => {
             <Link to="/login" className="nav-link btn-outline">
               Login
             </Link>
-            <Link to="/register" className="nav-link btn-primary">
+            <Link to="/register" className="nav-link btn-primary reg">
               Register
             </Link>
           </div>
@@ -103,8 +98,8 @@ const Navbar = () => {
       <div className="container">
         <div className="nav-content">
           <Link to="/" className="nav-logo">
-            <span className="logo-icon">🏫</span>
-            EDUPROJECTS
+            <span className="logo-icon"></span>
+            CAMPUS CLOUD WEB
           </Link>
           
           <div className="nav-links">

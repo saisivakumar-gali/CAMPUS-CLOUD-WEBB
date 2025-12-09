@@ -65,17 +65,17 @@ app.use('/api/download', downloadRoutes);
 // Health check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ 
-    message: 'EduProjects API is running!',
+    message: 'Campus Cloud Web API is running!',
     timestamp: new Date().toISOString()
   });
 });
 
 // MongoDB connection
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/eduprojects', {
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://janatalari4:Jana_119@cluster0.ornpg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('✅ MongoDB connected successfully'))
+.then(() => console.log('✅ MongoDB connected successfully '))
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // Error handling middleware

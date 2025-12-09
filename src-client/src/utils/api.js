@@ -62,6 +62,9 @@ export const projectsAPI = {
   updateStatus: (id, statusData) => api.put(`/projects/${id}/status`, statusData),
   finalUpload: (id, documents) => api.put(`/projects/${id}/final-upload`, documents),
   delete: (id) => api.delete(`/projects/${id}`),
+  // ADD NEW FUNCTION
+  submitFinalDetails: (id, projectDetails) => 
+    api.put(`/projects/${id}/final-details`, { projectDetails }),
 }
 
 // Users API

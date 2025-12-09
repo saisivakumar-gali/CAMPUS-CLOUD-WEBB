@@ -1,0 +1,169 @@
+/* --- FacultyDashboard.css --- */
+
+/* --- Global Variables (Consistency) --- */
+:root {
+    --color-logo-text: #000;
+    --color-background-page: #F5F5F5;
+    --color-card-background: #ffffff;
+    --color-link-hover: #555; 
+    --color-button-filled: #000; 
+    --border-radius-card: 12px;
+    --border-radius-pill: 50px;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+}
+
+.faculty-dashboard {
+    margin-top: 20px;
+}
+
+/* --- Stats Grid Overview --- */
+
+.stats-grid {
+    display: grid;
+    /* 4 columns on desktop */
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background-color: var(--color-card-background);
+    padding: 25px;
+    border-radius: var(--border-radius-card);
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    border-bottom: 3px solid #000; /* Subtle underline effect */
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+}
+
+.stat-card:nth-child(1) { border-color: #800020; } /* Pending: Highlight color */
+.stat-card:nth-child(2) { border-color: #17A34B; } /* Approved: Green */
+.stat-card:nth-child(3) { border-color: #A31717; } /* Rejected: Red */
+.stat-card:nth-child(4) { border-color: #000; }    /* Total: Black */
+
+
+.stat-card .stat-number {
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--color-logo-text);
+    margin-bottom: 5px;
+}
+
+.stat-card .stat-label {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: #555;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* --- Dashboard Tabs Navigation --- */
+
+.dashboard-tabs {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 30px;
+    overflow-x: auto; /* Allows scrolling on small screens */
+}
+
+.tab-btn {
+    font-family: var(--font-sans);
+    background: none;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #888;
+    white-space: nowrap;
+    transition: color 0.3s, border-bottom 0.3s;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    color: var(--color-link-hover);
+}
+
+.tab-btn.active {
+    color: var(--color-logo-text);
+    border-bottom: 3px solid var(--color-logo-text);
+}
+
+/* --- Tab Content / Projects Section --- */
+
+.projects-section {
+    padding-top: 20px;
+}
+
+.projects-section .section-title {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--color-logo-text);
+    text-align: left;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.projects-grid {
+    display: grid;
+    /* 2 columns for project cards */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+    gap: 30px;
+}
+
+/* Note: ProjectCard styling (e.g., .project-card) must be in ProjectCard.css */
+
+/* --- Empty State --- */
+
+.empty-state {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: var(--color-card-background);
+    border: 1px dashed #ccc;
+    border-radius: var(--border-radius-card);
+    margin-top: 20px;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.empty-state h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-family: var(--font-sans);
+    color: #777;
+}
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 992px) {
+    .stats-grid {
+        /* 2 columns on tablet */
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 600px) {
+    .stats-grid {
+        /* 1 column on mobile */
+        grid-template-columns: 1fr; 
+    }
+}

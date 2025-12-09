@@ -1,0 +1,84 @@
+/* --- PendingProjects.css (Styles for the Projects Listing) --- */
+
+/* --- Global Variables (Consistency) --- */
+:root {
+    --color-logo-text: #000;
+    --color-background-page: #F5F5F5;
+    --color-card-background: #ffffff;
+    --color-link-hover: #555; 
+    --color-button-filled: #000; 
+    --border-radius-card: 12px;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+    --color-pending-accent: #800020; /* Deep Burgundy for Pending status */
+}
+
+/* --- Pending Projects Container --- */
+
+.pending-projects {
+    padding: 10px 0;
+}
+
+/* --- Section Header (Title and Description) --- */
+
+.section-header {
+    text-align: left;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--color-logo-text);
+    margin: 0 0 5px 0;
+    
+    /* Highlight the "Pending" status in the title */
+    color: var(--color-pending-accent); 
+}
+
+.section-description {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    color: #777;
+    margin: 0;
+}
+
+/* --- Projects Grid --- */
+
+.projects-grid {
+    display: grid;
+    /* Maintain the two-column layout defined in the parent dashboard component */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+    gap: 30px;
+}
+
+/* --- Empty State (Used when projects.length === 0) --- */
+
+.empty-state {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: var(--color-card-background);
+    border: 1px dashed #ccc;
+    border-radius: var(--border-radius-card);
+    margin-top: 20px;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.empty-state h3 {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    margin-bottom: 10px;
+}
+
+.empty-state p {
+    font-family: var(--font-sans);
+    color: #777;
+}

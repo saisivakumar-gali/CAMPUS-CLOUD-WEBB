@@ -1,202 +1,395 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { projectsAPI } from '../../utils/api'
-import FileUpload from '../common/FileUpload'
 import LoadingSpinner from '../common/LoadingSpinner'
 
 const FinalUpload = ({ project, onUploadComplete }) => {
   const [uploading, setUploading] = useState(false)
-  const [uploadedFiles, setUploadedFiles] = useState({
-    report: null,
-    presentation: null,
-    code: null,
-    images: null
+  const [uploadMethod, setUploadMethod] = useState('form')
+  const [formData, setFormData] = useState({
+    projectTitle: project.title || '',
+    projectDomain: '',
+    teamMembers: project.teamMembers?.map(member => member.name).join(', ') || '',
+    guideName: project.facultyGuide?.firstName + ' ' + project.facultyGuide?.lastName || '',
+    batchYear: project.submittedBy?.year || '',
+    abstract: '',
+    fullDescription: project.description || '',
+    objectives: '',
+    problemStatement: '',
+    proposedSolution: '',
+    finalOutput: '',
+    performanceMetrics: '',
+    conclusion: '',
+    technologiesUsed: '',
+    challengesFaced: '',
+    futureEnhancements: ''
   })
 
-  const handleFileUpload = (fileType, fileData) => {
-    setUploadedFiles(prev => ({
+  const PROJECT_DOMAINS = [
+    'IoT (Internet of Things)',
+    'Machine Learning / AI',
+    'Web Development',
+    'Mobile Development',
+    'Embedded Systems',
+    'Cloud Computing',
+    'DevOps',
+    'Data Science',
+    'Cybersecurity',
+    'Networking',
+    'Robotics',
+    'Computer Vision',
+    'Natural Language Processing',
+    'Blockchain',
+    'AR/VR'
+  ]
+
+  // FIX: Prevent default form behavior and handle input properly
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({
       ...prev,
-      [fileType]: fileData
+      [field]: value
     }))
   }
 
-  const handleSubmit = async () => {
-    // Check if at least report is uploaded
-    if (!uploadedFiles.report) {
-      toast.error('Please upload at least the final report')
+  // FIX: Proper form submission with event prevention
+  const handleFormSubmit = async (e) => {
+    if (e) {
+      e.preventDefault() // Prevent form submission and page reload
+    }
+
+    // Validation
+    if (!formData.projectDomain || !formData.abstract || !formData.objectives || 
+        !formData.problemStatement || !formData.proposedSolution || !formData.finalOutput) {
+      toast.error('Please fill all required fields')
       return
     }
 
     try {
       setUploading(true)
       
-      console.log('🟡 Submitting files:', uploadedFiles)
-      await projectsAPI.finalUpload(project._id, uploadedFiles)
-      toast.success('Final documents uploaded successfully!')
+      const finalSubmission = {
+        basicInfo: {
+          projectTitle: formData.projectTitle,
+          projectDomain: formData.projectDomain,
+          teamMembers: formData.teamMembers.split(',').map(name => name.trim()).filter(name => name),
+          guideName: formData.guideName,
+          batchYear: formData.batchYear
+        },
+        description: {
+          abstract: formData.abstract,
+          fullDescription: formData.fullDescription,
+          objectives: formData.objectives.split('\n').filter(obj => obj.trim()),
+          problemStatement: formData.problemStatement,
+          proposedSolution: formData.proposedSolution
+        },
+        technicalDetails: {
+          finalOutput: formData.finalOutput,
+          performanceMetrics: formData.performanceMetrics,
+          conclusion: formData.conclusion,
+          technologiesUsed: formData.technologiesUsed ? 
+            formData.technologiesUsed.split(',').map(tech => tech.trim()).filter(tech => tech) : [],
+          challengesFaced: formData.challengesFaced,
+          futureEnhancements: formData.futureEnhancements
+        }
+      }
+
+      await projectsAPI.submitFinalDetails(project._id, finalSubmission)
+      toast.success('Project details submitted successfully!')
       
       if (onUploadComplete) {
         onUploadComplete()
       }
       
-      // Reset uploaded files
-      setUploadedFiles({
-        report: null,
-        presentation: null,
-        code: null,
-        images: null
-      })
-      
     } catch (error) {
-      console.error('❌ Error uploading final documents:', error)
-      console.error('❌ Error response:', error.response?.data)
-      
-      if (error.response?.data?.message) {
-        toast.error(error.response.data.message)
-      } else {
-        toast.error('Failed to upload final documents')
-      }
+      console.error('Error submitting project details:', error)
+      toast.error(error.response?.data?.message || 'Failed to submit project details')
     } finally {
       setUploading(false)
     }
   }
 
-  const hasUploadedFile = (fileType) => {
-    return uploadedFiles[fileType] !== null
+  const isFormValid = () => {
+    return formData.projectDomain && 
+           formData.abstract && 
+           formData.objectives && 
+           formData.problemStatement && 
+           formData.proposedSolution && 
+           formData.finalOutput
   }
 
-  return (
-    <div className="final-upload-section">
-      <h3>📄 Final Documents Upload</h3>
-      <p className="section-description">
-        Upload your final project deliverables. <strong>Final report is required.</strong> 
-        Other files are optional but recommended.
-      </p>
-
-      <div className="upload-grid">
-        <div className="upload-card required">
-          <div className="upload-header">
-            <h4>Final Report</h4>
-            <span className="required-badge">Required</span>
-          </div>
-          <p>Upload your complete project report (PDF/DOC/DOCX)</p>
-          <FileUpload
-            onUploadComplete={(file) => handleFileUpload('report', file)}
-            accept=".pdf,.doc,.docx"
-            fileType="report"
-            label="Choose Report"
-            maxSize={10}
+  const FormBasedUpload = () => (
+    <form onSubmit={handleFormSubmit} className="project-form-container"> {/* FIX: Added form tag */}
+      {/* Section 1: Basic Project Information */}
+      <div className="form-section">
+        <h4>🔹 1. Basic Project Information</h4>
+        
+        <div className="form-group">
+          <label className="form-label">Project Title *</label>
+          <input
+            type="text"
+            value={formData.projectTitle}
+            onChange={(e) => handleInputChange('projectTitle', e.target.value)}
+            className="form-input"
+            placeholder="Enter project title"
+            required
           />
-          {hasUploadedFile('report') && (
-            <div className="upload-success">
-              ✅ Report uploaded successfully
-            </div>
-          )}
         </div>
 
-        <div className="upload-card">
-          <div className="upload-header">
-            <h4>Presentation Slides</h4>
-            <span className="optional-badge">Optional</span>
-          </div>
-          <p>Upload your presentation slides (PPT/PPTX/PDF)</p>
-          <FileUpload
-            onUploadComplete={(file) => handleFileUpload('presentation', file)}
-            accept=".ppt,.pptx,.pdf"
-            fileType="presentation"
-            label="Choose Presentation"
-            maxSize={20}
-          />
-          {hasUploadedFile('presentation') && (
-            <div className="upload-success">
-              ✅ Presentation uploaded successfully
-            </div>
-          )}
+        <div className="form-group">
+          <label className="form-label">Project Domain *</label>
+          <select
+            value={formData.projectDomain}
+            onChange={(e) => handleInputChange('projectDomain', e.target.value)}
+            className="form-select"
+            required
+          >
+            <option value="">Select Project Domain</option>
+            {PROJECT_DOMAINS.map(domain => (
+              <option key={domain} value={domain}>{domain}</option>
+            ))}
+          </select>
         </div>
 
-        <div className="upload-card">
-          <div className="upload-header">
-            <h4>Source Code</h4>
-            <span className="optional-badge">Optional</span>
+        <div className="form-row">
+          <div className="form-group">
+            <label className="form-label">Team Members *</label>
+            <input
+              type="text"
+              value={formData.teamMembers}
+              onChange={(e) => handleInputChange('teamMembers', e.target.value)}
+              className="form-input"
+              placeholder="Enter team members separated by commas"
+              required
+            />
+            <small className="form-help">Example: Janardhan, Ravi, Kiran</small>
           </div>
-          <p>Upload your source code files (ZIP/RAR)</p>
-          <FileUpload
-            onUploadComplete={(file) => handleFileUpload('code', file)}
-            accept=".zip,.rar,.7z"
-            fileType="code"
-            label="Choose Code Archive"
-            maxSize={50}
-          />
-          {hasUploadedFile('code') && (
-            <div className="upload-success">
-              ✅ Source code uploaded successfully
-            </div>
-          )}
+
+          <div className="form-group">
+            <label className="form-label">Guide / Mentor Name *</label>
+            <input
+              type="text"
+              value={formData.guideName}
+              onChange={(e) => handleInputChange('guideName', e.target.value)}
+              className="form-input"
+              placeholder="Enter guide name"
+              required
+            />
+          </div>
         </div>
 
-        <div className="upload-card">
-          <div className="upload-header">
-            <h4>Project Images</h4>
-            <span className="optional-badge">Optional</span>
-          </div>
-          <p>Upload project screenshots or photos (JPG/PNG)</p>
-          <FileUpload
-            onUploadComplete={(file) => handleFileUpload('images', file)}
-            accept=".jpg,.jpeg,.png,.gif"
-            fileType="images"
-            label="Choose Images"
-            maxSize={15}
+        <div className="form-group">
+          <label className="form-label">Batch / Year *</label>
+          <input
+            type="text"
+            value={formData.batchYear}
+            onChange={(e) => handleInputChange('batchYear', e.target.value)}
+            className="form-input"
+            placeholder="Enter batch/year"
+            required
           />
-          {hasUploadedFile('images') && (
-            <div className="upload-success">
-              ✅ Images uploaded successfully
-            </div>
-          )}
         </div>
       </div>
 
-      <div className="upload-summary">
-        <h4>Upload Summary</h4>
-        <div className="summary-list">
-          <div className={`summary-item ${hasUploadedFile('report') ? 'completed' : 'pending'}`}>
-            📄 Final Report: {hasUploadedFile('report') ? '✅ Uploaded' : '❌ Required'}
-          </div>
-          <div className={`summary-item ${hasUploadedFile('presentation') ? 'completed' : 'pending'}`}>
-            📊 Presentation: {hasUploadedFile('presentation') ? '✅ Uploaded' : '⚪ Optional'}
-          </div>
-          <div className={`summary-item ${hasUploadedFile('code') ? 'completed' : 'pending'}`}>
-            💾 Source Code: {hasUploadedFile('code') ? '✅ Uploaded' : '⚪ Optional'}
-          </div>
-          <div className={`summary-item ${hasUploadedFile('images') ? 'completed' : 'pending'}`}>
-            🖼️ Project Images: {hasUploadedFile('images') ? '✅ Uploaded' : '⚪ Optional'}
-          </div>
+      {/* Section 2: Project Description */}
+      <div className="form-section">
+        <h4>🔹 2. Project Description</h4>
+        
+        <div className="form-group">
+          <label className="form-label">Abstract / Summary *</label>
+          <textarea
+            value={formData.abstract}
+            onChange={(e) => handleInputChange('abstract', e.target.value)}
+            className="form-textarea"
+            placeholder="Provide a 5-10 line summary of your project..."
+            rows="4"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Full Description</label>
+          <textarea
+            value={formData.fullDescription}
+            onChange={(e) => handleInputChange('fullDescription', e.target.value)}
+            className="form-textarea"
+            placeholder="Detailed explanation of your project..."
+            rows="4"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Objectives *</label>
+          <textarea
+            value={formData.objectives}
+            onChange={(e) => handleInputChange('objectives', e.target.value)}
+            className="form-textarea"
+            placeholder="List your project objectives (one per line)..."
+            rows="3"
+            required
+          />
+          <small className="form-help">Enter each objective on a new line</small>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Problem Statement *</label>
+          <textarea
+            value={formData.problemStatement}
+            onChange={(e) => handleInputChange('problemStatement', e.target.value)}
+            className="form-textarea"
+            placeholder="Describe the problem your project solves..."
+            rows="3"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Proposed Solution *</label>
+          <textarea
+            value={formData.proposedSolution}
+            onChange={(e) => handleInputChange('proposedSolution', e.target.value)}
+            className="form-textarea"
+            placeholder="Explain how your project solves the problem..."
+            rows="3"
+            required
+          />
+        </div>
+      </div>
+
+      {/* Section 3: Project Details */}
+      <div className="form-section">
+        <h4>🔹 3. Project Details</h4>
+        
+        <div className="form-group">
+          <label className="form-label">Final Output Description *</label>
+          <textarea
+            value={formData.finalOutput}
+            onChange={(e) => handleInputChange('finalOutput', e.target.value)}
+            className="form-textarea"
+            placeholder="Describe what your project delivers as final output..."
+            rows="3"
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Performance Metrics</label>
+          <textarea
+            value={formData.performanceMetrics}
+            onChange={(e) => handleInputChange('performanceMetrics', e.target.value)}
+            className="form-textarea"
+            placeholder="Accuracy, speed, efficiency metrics..."
+            rows="3"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Technologies Used</label>
+          <input
+            type="text"
+            value={formData.technologiesUsed}
+            onChange={(e) => handleInputChange('technologiesUsed', e.target.value)}
+            className="form-input"
+            placeholder="Enter technologies separated by commas"
+          />
+          <small className="form-help">Example: React, Node.js, MongoDB, Python</small>
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Challenges Faced</label>
+          <textarea
+            value={formData.challengesFaced}
+            onChange={(e) => handleInputChange('challengesFaced', e.target.value)}
+            className="form-textarea"
+            placeholder="Describe challenges you faced during development..."
+            rows="3"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Future Enhancements</label>
+          <textarea
+            value={formData.futureEnhancements}
+            onChange={(e) => handleInputChange('futureEnhancements', e.target.value)}
+            className="form-textarea"
+            placeholder="Potential improvements for future versions..."
+            rows="3"
+          />
+        </div>
+
+        <div className="form-group">
+          <label className="form-label">Conclusion</label>
+          <textarea
+            value={formData.conclusion}
+            onChange={(e) => handleInputChange('conclusion', e.target.value)}
+            className="form-textarea"
+            placeholder="Final summary and learnings from the project..."
+            rows="3"
+          />
         </div>
       </div>
 
       <div className="upload-actions">
         <button
-          onClick={handleSubmit}
-          disabled={!hasUploadedFile('report') || uploading}
+          type="submit" // FIX: Changed to submit type
+          disabled={!isFormValid() || uploading}
           className="btn btn-primary btn-large"
         >
-          {uploading ? <LoadingSpinner size="small" /> : '📤 Submit Final Documents'}
+          {uploading ? <LoadingSpinner size="small" /> : '📤 Submit Final Project Details'}
         </button>
         
-        <button
-          onClick={() => setUploadedFiles({
-            report: null,
-            presentation: null,
-            code: null,
-            images: null
-          })}
-          className="btn btn-secondary"
+        <div className="form-validation">
+          {!isFormValid() && (
+            <p className="validation-warning">
+              ⚠️ Please fill all required fields marked with *
+            </p>
+          )}
+        </div>
+      </div>
+    </form>
+  )
+
+  const FileBasedUpload = () => (
+    <div className="file-upload-section">
+      <p>Use the existing file upload functionality to submit documents.</p>
+      <button 
+        type="button" // FIX: Explicit button type
+        onClick={() => toast.info('File upload functionality is available in the original system')}
+        className="btn btn-secondary"
+      >
+        Switch to File Upload
+      </button>
+    </div>
+  )
+
+  return (
+    <div className="final-upload-section">
+      <h3>📄 Final Project Submission</h3>
+      <p className="section-description">
+        Choose your submission method below:
+      </p>
+
+      {/* Method Selector */}
+      <div className="upload-method-selector">
+        <button 
+          type="button" // FIX: Explicit button type
+          className={`method-btn ${uploadMethod === 'form' ? 'active' : ''}`}
+          onClick={() => setUploadMethod('form')}
         >
-          ❌ Clear All
+          📝 Submit Details Form
+        </button>
+        <button 
+          type="button" // FIX: Explicit button type
+          className={`method-btn ${uploadMethod === 'files' ? 'active' : ''}`}
+          onClick={() => setUploadMethod('files')}
+        >
+          📁 Upload Documents
         </button>
       </div>
 
+      {uploadMethod === 'form' ? <FormBasedUpload /> : <FileBasedUpload />}
+
       <div className="upload-info">
-        <p><strong>Note:</strong> Once you submit final documents, your project status will be marked as "Completed" 
-        and will appear in the public projects repository. This action cannot be undone.</p>
+        <p><strong>Note:</strong> Form submission provides better searchability and organization of project information.</p>
       </div>
     </div>
   )

@@ -1,0 +1,415 @@
+/* --- Hero Section Styles (Matching Image Palette & Font) --- */
+
+.hero-section {
+    /* Background color sampled from the uploaded image (a very light, subtle gray) */
+    background-color: #F5F5F5; 
+    
+    /* Default text color for the section is pure black */
+    color: #000; 
+    
+    padding: 150px 0 180px 0; 
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    text-align: center; 
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- Typography Focus (Playfair Display, Pure Black) --- */
+
+.hero-title {
+    font-family: 'Playfair Display', serif; 
+    font-size: 4.8rem; 
+    font-weight: 300; /* Light weight for elegance */
+    line-height: 1.1;
+    margin-bottom: 30px;
+    color: #000; /* Pure Black Text */
+}
+
+.highlight {
+    /* Highlighting text with pure black but maintaining italic style */
+    color: #000; 
+    font-style: bold;
+    font-family: 'Georgia', 'Times New Roman', serif; 
+    font-weight: 900;
+    font-weight: 400;
+}
+
+.hero-subtitle {
+    /* Subtitle remains sans-serif (Inter) for visual contrast */
+    font-family: 'Inter', sans-serif; 
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: #000; /* Pure Black Text */
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.7; /* Slightly lighter appearance than the main title */
+}
+
+.hero-description {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem; 
+    line-height: 1.8;
+    margin-bottom: 50px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #000; /* Pure Black Text */
+}
+
+/* --- Action Buttons (Adapted for Light Background) --- */
+
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Primary Button: Filled Black */
+.btn-primary {
+    background-color: #000; 
+    border-color: #000;
+    color: #fff; /* White text on dark button */
+}
+
+.btn-primary:hover {
+    background-color: #333;
+    border-color: #333;
+}
+
+/* Secondary Button: Outlined Black */
+.btn-secondary {
+    background-color: transparent;
+    color: #000; 
+    border-color: #000; 
+}
+
+.btn-secondary:hover {
+    background-color: #000;
+    color: #fff; /* White text on hover */
+}
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-section {
+        padding: 100px 0;
+    }
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    .hero-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .btn-large {
+        width: 100%;
+    }
+}
+
+
+
+/* --- About Section Styles (Matching Image Palette & Fonts) --- */
+
+.about-section {
+    background-color: #F5F5F5; /* Matches hero section background */
+    padding: 100px 0; /* Consistent section padding */
+    text-align: center; /* Center the section title */
+    color: #000; /* Default text color to black */
+}
+
+/* --- Section Title --- */
+
+.section-title {
+    font-family: 'Playfair Display', serif; /* Elegant serif font for section titles */
+    font-size: 3.2rem; /* Large and prominent */
+    font-weight: 300; /* Light weight for elegance */
+    color: #000; /* Pure black text */
+    margin-bottom: 70px; /* More space below title */
+    position: relative;
+    display: inline-block;
+    line-height: 1.2;
+}
+
+.section-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #000; /* Black underline */
+    margin: 20px auto 0;
+    border-radius: 5px;
+}
+
+/* --- About Content Layout --- */
+
+.about-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 60px; /* Increased gap for more breathing room */
+    text-align: left; /* Text within content blocks is left-aligned */
+    align-items: flex-start; /* Align items to the top */
+}
+
+/* --- About Text Block (Left Side) --- */
+
+.about-text {
+    flex: 3; /* Allows this block to take more space */
+    min-width: 350px;
+}
+
+.about-text h3 {
+    font-family: 'Playfair Display', serif; /* Serif font for sub-heading */
+    color: #000; /* Black text */
+    font-size: 2.2rem; /* Prominent sub-heading */
+    font-weight: 400;
+    margin-top: 0;
+    margin-bottom: 25px;
+    line-height: 1.3;
+}
+
+.about-text p {
+    font-family: 'Inter', sans-serif; /* Clean sans-serif for readability */
+    color: #333; /* Slightly softer black for body text */
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+/* --- About Stats --- */
+
+.about-stats {
+    display: flex;
+    justify-content: space-around; /* Distribute stats evenly */
+    gap: 30px;
+    margin-top: 40px;
+    padding: 30px; /* Padding inside the stats box */
+    background-color: #fff; /* White background for stats box */
+    border-radius: 12px; /* Slightly more rounded corners */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08); /* More noticeable shadow */
+    border-left: 5px solid #000; /* A black border to add design flair */
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-family: 'Playfair Display', serif; /* Serif for numbers for elegance */
+    font-size: 3rem;
+    font-weight: 700;
+    color: #000; /* Black color */
+    display: block;
+    margin-bottom: 5px;
+}
+
+.stat-label {
+    font-family: 'Inter', sans-serif; /* Sans-serif for labels */
+    font-size: 0.95rem;
+    color: #555; /* Darker grey for labels */
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- About Visions Block (Right Side) --- */
+
+.about-visions {
+    flex: 2; /* Allows this block to take less space */
+    min-width: 280px;
+    display: grid;
+    gap: 30px; /* Space between vision cards */
+}
+
+.vision-card {
+    background-color: #fff; /* White background for cards */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06); /* Subtle shadow for cards */
+    transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+    border-left: 6px solid #000; /* Strong black left border */
+}
+
+.vision-card:hover {
+    transform: translateY(-8px); /* Lift on hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* More pronounced shadow on hover */
+    border-left-color: #333; /* Slightly lighter border on hover */
+}
+
+.vision-card h4 {
+    font-family: 'Inter', sans-serif; /* Sans-serif for vision card titles */
+    color: #000; /* Black text */
+    margin-top: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 15px; /* Space between icon and text */
+}
+
+.vision-card p {
+    font-family: 'Inter', sans-serif;
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 992px) {
+    .about-content {
+        flex-direction: column;
+        text-align: center; /* Center content blocks for smaller screens */
+    }
+    .about-text, .about-visions {
+        min-width: unset; /* Allow natural width */
+    }
+    .about-stats {
+        justify-content: center;
+        flex-wrap: wrap;
+        border-left: none; /* Remove left border on mobile */
+        border-top: 5px solid #000; /* Add top border for mobile */
+    }
+    .vision-card {
+        text-align: left; /* Keep vision cards left-aligned for readability */
+        margin: 0 auto; /* Center individual cards if needed */
+        max-width: 500px; /* Constrain width for better look */
+    }
+}
+
+@media (max-width: 600px) {
+    .section-title {
+        font-size: 2.5rem;
+    }
+    .about-text h3 {
+        font-size: 1.8rem;
+    }
+    .stat-number {
+        font-size: 2.5rem;
+    }
+}
+
+
+/* --- Departments Section Styles (Iconic Grid Match) --- */
+
+.departments-section {
+    background-color: #F5F5F5; /* Matches the hero and about section background */
+    padding: 100px 0;
+    text-align: center;
+    color: #000;
+}
+
+/* --- Section Title (Reusing elegant style) --- */
+.section-title {
+    font-family: 'Playfair Display', serif; 
+    font-size: 3.2rem; 
+    font-weight: 300; 
+    color: #000; 
+    margin-bottom: 20px; /* Reduced margin to pull it closer to the paragraph below */
+    line-height: 1.2;
+}
+
+/* Adding a descriptive paragraph below the title, mimicking the image structure */
+.departments-section .container > p {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.1rem;
+    color: #333;
+    max-width: 800px;
+    margin: 0 auto 70px auto; /* Margin to separate the text from the grid */
+    line-height: 1.6;
+}
+/* Note: You might want to manually add a <p> tag below your <h2> in the JSX for the best look */
+
+
+/* --- Departments Grid Layout --- */
+
+.departments-grid {
+    display: grid;
+    /* Forces a 3-column layout on desktop, as seen in the image */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 40px; /* Space between the cards */
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.department-card {
+    background-color: transparent; /* No background on card itself */
+    padding: 20px;
+    text-align: center;
+    /* Resetting any previous shadows/borders for the clean look */
+    box-shadow: none; 
+    transition: all 0.3s ease;
+}
+
+.department-card:hover {
+    transform: none; /* No lift/shadow on hover, maintaining minimalism */
+}
+
+/* --- Icons --- */
+
+.department-icon {
+    /* Container for the icon to add the simple line/box design seen in the image */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border: 2px solid #000; /* Black outline */
+    border-radius: 8px; /* Slight rounding on the box */
+    margin-bottom: 25px;
+    font-size: 2.2rem; /* Size of the emoji/icon inside the box */
+    color: #000;
+}
+
+
+/* --- Card Content --- */
+
+.department-name {
+    /* Elegant serif font for the title below the icon */
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #000;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.department-projects {
+    /* Sans-serif font for the descriptive text (Project Count) */
+    font-family: 'Inter', sans-serif; 
+    color: #333;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 300px; /* Constrain width for cleaner lines */
+    margin: 0 auto;
+}
+
+
+/* --- Responsive Adjustments --- */
+
+@media (max-width: 1024px) {
+    .departments-grid {
+        /* Switch to 2 columns on tablet */
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 600px) {
+    .departments-grid {
+        /* Single column on mobile */
+        grid-template-columns: 1fr; 
+        gap: 50px;
+    }
+}

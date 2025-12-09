@@ -1,0 +1,154 @@
+/* --- StudentDashboard.css --- */
+
+/* --- Global Variables (Consistency) --- */
+:root {
+    --color-logo-text: #000;
+    --color-card-background: #ffffff;
+    --color-button-filled: #000; 
+    --color-link-hover: #555; /* Used for dark grey link hover */
+    --border-radius-card: 10px; 
+    --border-radius-pill: 50px;
+    --font-serif: 'Playfair Display', serif;
+    --font-sans: 'Inter', sans-serif;
+
+    /* Status Accents */
+    --status-pending: #800020; /* Deep Burgundy */
+    --status-approved: #17A34B; /* Green */
+    --status-rejected: #A31717; /* Red */
+}
+
+/* --- Dashboard Tabs Navigation --- */
+
+.dashboard-tabs {
+    /* Use flexbox to align tabs horizontally */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 30px;
+    overflow-x: auto; 
+    margin-top: 20px; /* Space below the Student Info Card (if present in parent) */
+}
+
+.tab-btn {
+    font-family: var(--font-sans);
+    background: none;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    cursor: pointer;
+    color: #888;
+    white-space: nowrap;
+    transition: color 0.3s, border-bottom 0.3s;
+    border-bottom: 3px solid transparent;
+}
+
+.tab-btn:hover {
+    color: var(--color-link-hover);
+}
+
+.tab-btn.active {
+    color: var(--color-logo-text);
+    border-bottom: 3px solid var(--color-logo-text);
+}
+
+/* --- Tab Content Area --- */
+
+.tab-content {
+    /* Ensures the content area takes 100% width and flows cleanly */
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.projects-section {
+    padding: 10px 0;
+    margin-bottom: 30px;
+}
+
+/* --- Section Titles --- */
+
+.projects-section .section-title {
+    font-family: var(--font-serif);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: var(--color-logo-text);
+    text-align: left;
+    margin: 0 0 25px 0;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+/* Specific color accents for status headers inside the Overview Tab */
+/* Note: This assumes the sections are loaded in the order: Approved, Pending, Rejected */
+.projects-section:nth-child(1) .section-title { color: var(--status-approved); } 
+.projects-section:nth-child(2) .section-title { color: var(--status-pending); } 
+.projects-section:nth-child(3) .section-title { color: var(--status-rejected); } 
+
+
+/* --- Projects Grid (Flexbox Setup for Fixed-Width Cards) --- */
+.projects-grid {
+    display: flex;
+    flex-direction: row;
+    /* Allows cards to wrap to the next line */
+    flex-wrap: wrap; 
+    justify-content: flex-start; /* Aligns cards to the left */
+    gap: 20px; 
+}
+
+/* Assuming the ProjectCard component itself has a fixed width of 360px (per last updates) */
+.projects-grid .project-card {
+    /* Prevents card from expanding to fill the row */
+    flex-grow: 0; 
+    /* Allows card to shrink modestly if container is narrow */
+    flex-shrink: 1; 
+    /* Sets the basis to the desired fixed width */
+    flex-basis: 360px; 
+}
+
+
+/* --- Empty State --- */
+
+.empty-state {
+    padding: 50px 30px;
+    text-align: center;
+    background-color: var(--color-card-background);
+    border: 1px dashed #ccc;
+    border-radius: var(--border-radius-card);
+    margin-top: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.empty-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.empty-state h3 {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 15px;
+}
+
+.empty-state p {
+    font-family: var(--font-sans);
+    color: #777;
+    margin-bottom: 25px;
+}
+
+.empty-state .btn-primary {
+    /* Style the button consistently with the primary black theme */
+    background-color: var(--color-button-filled);
+    color: var(--color-card-background);
+    border-radius: var(--border-radius-pill);
+    padding: 10px 20px;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.empty-state .btn-primary:hover {
+    background-color: var(--color-link-hover);
+}

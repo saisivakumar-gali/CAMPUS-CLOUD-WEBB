@@ -8,7 +8,7 @@ const Footer = () => {
           <div className="footer-section">
             <div className="footer-logo">
               <span className="logo-icon">🏫</span>
-              EDUPROJECTS
+              CAMPUS CLOUD WEB
             </div>
             <p className="footer-description">
               Empowering students and faculty with a comprehensive project management platform for academic excellence and innovation.
@@ -35,7 +35,7 @@ const Footer = () => {
             <h4>Departments</h4>
             <div className="footer-links">
               <span className="footer-link">Computer Science</span>
-              <span className="footer-link">Electronics</span>
+              <span className="footer-link">Electronics & Communications</span>
               <span className="footer-link">Electrical</span>
               <span className="footer-link">Mechanical</span>
               <span className="footer-link">Civil</span>
@@ -63,7 +63,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>&copy; 2024 EduProjects. All rights reserved.</p>
+          <p>&copy; 2025 Campus Cloud Web. All rights reserved.</p>
           <div className="footer-bottom-links">
             <Link to="/privacy" className="footer-link">Privacy Policy</Link>
             <Link to="/terms" className="footer-link">Terms of Service</Link>

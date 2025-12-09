@@ -68,7 +68,7 @@ const LoginPage = () => {
         <div className="auth-card">
           <div className="auth-header">
             <h1 className="auth-title">Welcome Back</h1>
-            <p className="auth-subtitle">Sign in to your EduProjects account</p>
+            <p className="auth-subtitle">Sign in to your Campus Cloud Web account</p>
           </div>
 
           <form onSubmit={handleSubmit} className="auth-form">
@@ -107,7 +107,7 @@ const LoginPage = () => {
               className="btn btn-primary auth-btn"
               disabled={loading}
             >
-              {loading ? <LoadingSpinner size="small" /> : '🔐 Sign In'}
+              {loading ? <LoadingSpinner size="small" /> : ' Sign In'}
             </button>
           </form>
 
@@ -118,13 +118,13 @@ const LoginPage = () => {
                 onClick={() => handleDemoLogin('student')}
                 className="btn btn-secondary btn-sm"
               >
-                🎓 Student Demo
+                 Student Demo
               </button>
               <button 
                 onClick={() => handleDemoLogin('faculty')}
                 className="btn btn-secondary btn-sm"
               >
-                👨‍🏫 Faculty Demo
+                 Faculty Demo
               </button>
             </div>
             <div className="demo-account">
